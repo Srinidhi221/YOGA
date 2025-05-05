@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Heritage of India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e6f2ff;
+            --secondary-color: #2c3e50;
+            --accent-color: #2c3e50;
+            --text-color: #333;
+            --light-text: #666;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--light-text);
+            background-color: var(--secondary-color);
+            overflow-x: hidden;
+        }
+
+        /* Back Button */
+        .back-home {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+        }
+
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background-color: var(--accent-color);
+        }
+
+        .back-home::before {
+            content: "←";
+            font-size: 1.2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--light-text);
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Story Elements in Hero */
+        .story-elements {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .story-element {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            width: 300px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .story-element:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .story-element h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .story-element p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Heritage Sections */
+        .heritage-section {
+            padding: 6rem 2rem;
+            background-color: var(--accent-color);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .section-header:hover h2::after {
+            width: 100%;
+        }
+
+        .decorative-line {
+            width: 100px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 1rem auto;
+        }
+
+        .heritage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .heritage-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.5s ease;
+            position: relative;
+            transform-origin: center;
+        }
+
+        .heritage-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .heritage-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.7));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .heritage-card:hover .card-image::after {
+            opacity: 1;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card-content h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card-content p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .read-more {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .read-more::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .read-more:hover::before {
+            left: 100%;
+        }
+
+        /* Content Blocks */
+        .content-block {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            border-radius: 10px;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-block h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .content-block p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--accent-color);
+            padding: 2rem;
+            border-left: 4px solid var(--secondary-color);
+            margin: 2rem 0;
+            background-color: rgba(74, 144, 226, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .quote:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        .main-footer {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            background-color: var(--white);
+            color: var(--secondary-color);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--accent-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        /* Animation Classes */
+        .animate {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add these new animation styles */
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Add animation classes */
+        .animate-slide {
+            animation: slideIn 1s ease forwards;
+        }
+
+        .animate-fade {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <a href="origins.html" class="back-home">Back Home</a>
+        
+        <div class="hero-content">
+            <h1 style="color: whitesmoke;">Yoga Heritage of India</h1>
+            <p class="hero-subtitle">Discover the rich cultural and spiritual heritage of yoga</p>
+            
+            <div class="story-elements">
+                <div class="story-element animate">
+                    <h3>Spiritual Significance</h3>
+                    <p>Explore how yoga serves as a bridge between physical and spiritual realms, offering a path to self-realization.</p>
+                </div>
+                <div class="story-element animate">
+                    <h3>Physical Well-being</h3>
+                    <p>Discover the comprehensive approach to health that addresses physical, mental, and spiritual aspects.</p>
+                </div>
+                <div class="story-element animate">
+                    <h3>Artistic Expressions</h3>
+                    <p>Learn about yoga's influence on Indian art, music, and cultural expressions throughout history.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="spiritual" class="heritage-section">
+            <div class="section-header">
+                <h2>Spiritual Significance</h2>
+                <div class="decorative-line"></div>
+            </div>
+            <div class="content-block">
+                <h3>Yoga in Indian Philosophy</h3>
+                <p>Yoga holds a central place in Hinduism and other Indian philosophical traditions. It serves as a bridge between the physical and spiritual realms, offering a path to self-realization and enlightenment. The practice of yoga is deeply intertwined with India's spiritual heritage, influencing various schools of thought and religious practices.</p>
+                <div class="quote">
+                    "Yoga is the journey of the self, through the self, to the self." - The Bhagavad Gita
+                </div>
+            </div>
+            <div class="heritage-grid">
+                <div class="heritage-card">
+                    <div class="card-image">
+                        <img src="hinduism1.jpeg" alt="Hindu Yoga">
+                    </div>
+                    <div class="card-content">
+                        <h3>Hinduism and Yoga</h3>
+                        <p>In Hinduism, yoga is considered one of the six orthodox schools of philosophy. It provides a systematic approach to spiritual growth, emphasizing the union of individual consciousness with universal consciousness.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+                <div class="heritage-card">
+                    <div class="card-image">
+                        <img src="Gautam Buddha.jpeg" alt="Buddhist Meditation">
+                    </div>
+                    <div class="card-content">
+                        <h3>Buddhist and Jain Traditions</h3>
+                        <p>Yoga has significantly influenced Buddhist and Jain practices, particularly in meditation techniques and ethical principles. These traditions have developed their own unique approaches to yoga while maintaining its core spiritual essence.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="wellbeing" class="heritage-section">
+            <div class="section-header">
+                <h2>Physical and Mental Well-being</h2>
+                <div class="decorative-line"></div>
+            </div>
+            <div class="content-block">
+                <h3>Holistic Health Approach</h3>
+                <p>Yoga's approach to health and well-being is comprehensive, addressing physical, mental, and spiritual aspects of human existence. This holistic approach has been practiced in India for thousands of years and continues to benefit millions worldwide.</p>
+            </div>
+            <div class="heritage-grid">
+                <div class="heritage-card">
+                    <div class="card-image">
+                        <img src="physical.jpeg" alt="Yoga Asanas">
+                    </div>
+                    <div class="card-content">
+                        <h3>Physical Benefits</h3>
+                        <p>Yoga postures (asanas) improve flexibility, strength, and balance. Regular practice can enhance cardiovascular health, boost immunity, and promote overall physical well-being.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+                <div class="heritage-card">
+                    <div class="card-image">
+                        <img src="download (3).jpeg" alt="Meditation">
+                    </div>
+                    <div class="card-content">
+                        <h3>Mental Health</h3>
+                        <p>Yoga's meditation and breathing techniques help reduce stress, anxiety, and depression. The practice promotes mental clarity, emotional balance, and inner peace.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="artistic" class="heritage-section">
+            <div class="section-header">
+                <h2>Artistic Expressions</h2>
+                <div class="decorative-line"></div>
+            </div>
+            <div class="content-block">
+                <h3>Yoga in Indian Art and Culture</h3>
+                <p>Yoga has inspired countless artistic expressions throughout Indian history, from ancient temple carvings to modern art forms. These artistic representations not only preserve the physical aspects of yoga but also capture its spiritual essence and cultural significance.</p>
+            </div>
+            <div class="heritage-grid">
+                <div class="heritage-card">
+                    <div class="card-image">
+                        <img src="music2.jpeg" alt="Yoga Art">
+                    </div>
+                    <div class="card-content">
+                        <h3>Visual Arts</h3>
+                        <p>Indian art and sculpture have beautifully captured yoga postures and spiritual concepts for centuries. From ancient temple carvings to modern paintings, yoga's influence on Indian art is profound.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+                <div class="heritage-card">
+                    <div class="card-image">
+                        <img src="Veena.jpeg" alt="Yoga Music">
+                    </div>
+                    <div class="card-content">
+                        <h3>Music and Literature</h3>
+                        <p>Indian classical music and mantras are integral to yoga practice. The traditional sounds and rhythms create a meditative atmosphere that enhances the spiritual experience of yoga.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Enhanced scroll animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.heritage-card, .content-block, .section-header, .quote');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.classList.add('animate-fade');
+                }
+            });
+        };
+
+        // Add hover effect to navigation links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                link.style.transform = 'translateY(-2px)';
+            });
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add click animation to cards
+        document.querySelectorAll('.heritage-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    card.style.transform = 'translateY(-10px) scale(1.02)';
+                }, 200);
+            });
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>

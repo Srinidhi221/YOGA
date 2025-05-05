@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Postures 3D Viewer</title>
+    <style>
+        /* Base Styles */
+        :root {
+            /* --primary: #e6f7ff;
+            --secondary: #b3e0ff;
+            --accent: #66c2ff;
+            --dark: #333333;
+            --light: #ffffff; */
+
+            --primary: #e6f7ff;
+            --secondary: #3b4363;
+            --accent:#23283b;
+            --dark: #333333;
+            --light: #cba588;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: var(--primary);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            outline: none;
+            padding: 0.2rem 0.5rem;
+            width: 200px;
+        }
+        
+        .search-bar button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(135deg, var(--primary), var(--light));
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 194, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+        }
+        
+        .hero-content {
+            width: 50%;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 194, 255, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 194, 255, 0.4);
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 5%;
+            width: 40%;
+            height: 80%;
+            background: url('Yoga for Reducing Tension in the Feet.jpeg') no-repeat center;
+            background-size: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+        
+        .hero-image:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent), var(--primary));
+            border-radius: 2px;
+        }
+        
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-button {
+            background: white;
+            border: 2px solid var(--secondary);
+            color: var(--dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .filter-button:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .filter-button.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        /* Posture Gallery */
+        .posture-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .posture-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .posture-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(102, 194, 255, 0.2);
+        }
+        
+        .posture-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .posture-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .posture-info {
+            padding: 1.5rem;
+        }
+        
+        .posture-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .posture-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .difficulty {
+            display: flex;
+            align-items: center;
+        }
+        
+        .difficulty span {
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .stars {
+            color: var(--accent);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+        
+        .page-button {
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .page-button:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .page-button.active {
+            background: var(--accent);
+            color: white;
+        }
+        
+        /* 3D Viewer Section */
+        .viewer-section {
+            display: flex;
+            min-height: 70vh;
+            margin-bottom: 4rem;
+            background: linear-gradient(to right, white 50%, var(--primary) 50%);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .viewer-container {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .viewer-container h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .viewer-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .control-button {
+            background: var(--light);
+            border: 2px solid var(--secondary);
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .control-button:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .control-button.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .viewer-wrapper {
+            width: 100%;
+            height: 400px;
+            background-color: #f9f9f9;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        #posture-viewer {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+        
+        #posture-viewer img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .posture-details {
+            flex: 1;
+            padding: 2rem;
+            background-color: var(--primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .posture-details h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .posture-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .posture-details p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .benefits-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .timer-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: auto;
+        }
+        
+        .timer {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .timer-button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .timer-button:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: var(--dark);
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .copyright {
+            color: var(--dark);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                width: 60%;
+            }
+            
+            .hero-image {
+                width: 35%;
+            }
+            
+            .viewer-section {
+                flex-direction: column;
+                background: white;
+            }
+            
+            .posture-details {
+                background-color: var(--primary);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                height: auto;
+                padding: 2rem;
+                text-align: center;
+            }
+            
+            .hero-content {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-image {
+                position: relative;
+                right: auto;
+                width: 100%;
+                height: 300px;
+                margin-top: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .search-bar {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .posture-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <span>Yoga 3D</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#postures">Postures</a></li>
+            <li><a href="#viewer">3D Viewer</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Explore Yoga Postures in 3D</h1>
+            <p>Discover over 100 yoga postures with detailed 3D visualization and step-by-step instructions.</p>
+            <a href="#postures" class="cta-button">Browse Postures</a>
+        </div>
+        <div class="hero-image floating"></div>
+    </section>
+
+    <div class="container" id="postures">
+        <div class="section-title">
+            <h2>Yoga Postures</h2>
+        </div>
+        
+        <div class="filter-controls">
+            <button class="filter-button active" data-filter="all">All</button>
+            <button class="filter-button" data-filter="mudra">Mudras</button>
+            <button class="filter-button" data-filter="asana">Asanas</button>
+        </div>
+        <div class="posture-gallery" id="gallery">
+            <!-- Cards will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <div class="container" id="viewer">
+        <div class="section-title">
+            <h2>3D Posture Viewer</h2>
+        </div>
+        <div style="text-align:center; margin: 2rem 0 0 0; color:#666; font-size:1.05rem;">
+            <strong>Note:</strong> The timer has been set for 30 seconds for all poses.
+        </div>
+        <br>
+        
+        <div class="viewer-section">
+            <div class="viewer-container">
+                <h2>Interactive Viewer</h2>
+                <div class="viewer-controls">
+                    <button class="control-button active">Rotate</button>
+                    <button class="control-button">Zoom</button>
+                    <button class="control-button">Details</button>
+                </div>
+                <div class="viewer-wrapper">
+                    <div id="posture-viewer">
+                        <img id="viewer-image" src="https://via.placeholder.com/500x300/e6f7ff/66c2ff?text=Select+a+Posture" alt="3D Posture Viewer">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="posture-details">
+                <h2 id="detail-title">Select a Posture</h2>
+                <h3 id="detail-type">Click on any posture to view details</h3>
+                <p id="detail-description">Detailed information about the selected yoga posture will appear here, including benefits and instructions.</p>
+                <ul class="benefits-list" id="detail-benefits">
+                    <!-- Benefits will be added by JavaScript -->
+                </ul>
+                <div class="timer-controls">
+                    <button class="timer-button">▶</button>
+                    <div class="timer">00:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Yoga 3D</div>
+            <ul class="footer-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Postures</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Privacy</a></li>
+            </ul>
+            <div class="social-icons">
+                <a href="#"><i>📱</i></a>
+                <a href="#"><i>📘</i></a>
+                <a href="#"><i>📸</i></a>
+                <a href="#"><i>🐦</i></a>
+            </div>
+            <p class="copyright">© 2023 Yoga 3D. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const cards = [
+            { title: "Tittibhasana", html: `<iframe title="Tittibhasana 3D" width="300" height="200" src="https://sketchfab.com/models/ccd408ccdbd741e59764d3fda9a675f5/embed" frameborder="0" allowfullscreen></iframe>`, description: "Lotus pose for deep meditation.", type: "asana", benefits: ["Calms mind", "Improves posture", "Boosts awareness"] },
+            { title: "Gyan Mudra", html: `<img src="gyana.jpeg" alt="Gyan Mudra" width="300" height="200" style="object-fit: cover;">`, description: "Gesture of knowledge for wisdom and calm.", type: "mudra", benefits: ["Enhances focus", "Reduces stress", "Boosts learning"] },
+            { title: "Trikonasana", html: `<iframe title="Trikonasana 3D" width="300" height="200" src="https://sketchfab.com/models/7c37c060b695426f8034fc034330ddee/embed" frameborder="0" allowfullscreen></iframe>`, description: "Triangle pose for strength and flexibility.", type: "asana", benefits: ["Stretches spine", "Tones legs", "Improves digestion"] },
+            { title: "Urdhva Prasarita Padasana", html: `<iframe title="Urdhva Prasarita Padasana 3D" width="300" height="200" src="https://sketchfab.com/models/d10b73be6bfc4d239151c2ed85b72a41/embed" frameborder="0" allowfullscreen></iframe>`, description: "Lotus pose for deep meditation.", type: "asana", benefits: ["Calms mind", "Improves posture", "Boosts awareness"] },
+            { title: "Sukhasana", html: `<iframe title="Sukhasana 3D" width="300" height="200" src="https://sketchfab.com/models/0c795e14fef24dc2a5cb026cda47976e/embed" frameborder="0" allowfullscreen></iframe>`, description: "Easy pose for meditation and relaxation.", type: "asana", benefits: ["Strengthens back", "Opens heart", "Tones abdomen"] },
+            { title: "Adi Mudra", html: `<img src="adi.jpeg" alt="Adi Mudra" width="300" height="200" style="object-fit: cover;">`, description: "Mudra for stimulating metabolism and vitality.", type: "mudra", benefits: ["Boosts digestion", "Reduces fat", "Improves energy"] },
+            { title: "Urdhva Baddhanguliyasana", html: `<iframe title="Urdhva Baddhanguliyasana 3D" width="300" height="200" src="https://sketchfab.com/models/3d5c95e955fb4a7f9ab5da5fa0e7025a/embed" frameborder="0" allowfullscreen></iframe>`, description: "Upward bound fingers pose for hand flexibility.", type: "asana", benefits: ["Improves hand flexibility", "Strengthens fingers", "Enhances circulation"] },
+            { title: "Vayu Mudra", html: `<img src="vayu.jpeg" alt="Vayu Mudra" width="300" height="200" style="object-fit: cover;">`, description: "Relieves gas and joint pain.", type: "mudra", benefits: ["Reduces bloating", "Soothes nerves", "Alleviates pain"] },
+            { title: "Bharadvajasana On Chair", html: `<iframe title="Bharadvajasana On Chair 3D" width="300" height="200" src="https://sketchfab.com/models/36ece80288764de39980f4bc68fb18b6/embed" frameborder="0" allowfullscreen></iframe>`, description: "Seated twist pose for spinal flexibility.", type: "asana", benefits: ["Improves spinal mobility", "Stimulates digestion", "Relieves back pain"] },
+            { title: "Shunya Mudra", html: `<img src="shunya.jpeg" alt="Shunya Mudra" width="300" height="200" style="object-fit: cover;">`, description: "Mudra to relieve ear and head discomfort.", type: "mudra", benefits: ["Eases earaches", "Improves hearing", "Balances space element"] },
+            { title: "Adho Mukha Svanasana", html: `<iframe title="Adho Mukha Svanasana 3D" width="300" height="200" src="https://sketchfab.com/models/836a5d9a08d74f7ea2ff353f7e550506/embed" frameborder="0" allowfullscreen></iframe>`, description: "Downward dog pose for full body rejuvenation.", type: "asana", benefits: ["Stretches back", "Energizes body", "Strengthens arms"] },
+            { title: "Chin Mudra", html: `<img src="chin.jpeg" alt="Chin Mudra" width="300" height="200" style="object-fit: cover;">`, description: "Mudra of consciousness to calm the mind.", type: "mudra", benefits: ["Improves sleep", "Reduces anxiety", "Boosts mindfulness"] },
+            { title: "Utthita Parsva Konasana", html: `<iframe title="Utthita Parsva Konasana 3D" width="300" height="200" src="https://sketchfab.com/models/5d7f074f4ee54ee8930537fb0df21ef2/embed" frameborder="0" allowfullscreen></iframe>`, description: "Extended side angle pose for strength and flexibility.", type: "asana", benefits: ["Strengthens legs", "Opens hips", "Improves balance"] },
+            { title: "Apana Mudra", html: `<img src="apana1.jpeg" alt="Apana Mudra" width="300" height="200" style="object-fit: cover;">`, description: "Mudra for elimination and detoxification.", type: "mudra", benefits: ["Supports excretion", "Clears toxins", "Enhances pelvic energy"] },
+            { title: "Paschimottanasana", html: `<iframe title="Paschimottanasana 3D" width="300" height="200" src="https://sketchfab.com/models/809aba7f41324827bfd37de6c15a1617/embed" frameborder="0" allowfullscreen></iframe>`, description: "Seated forward bend for deep hamstring stretch.", type: "asana", benefits: ["Stretches spine", "Calms mind", "Improves digestion"] },
+            { title: "Prana Mudra", html: `<img src="apana.jpeg" alt="Prana Mudra" width="300" height="200" style="object-fit: cover;">`, description: "Mudra of life to activate pranic energy.", type: "mudra", benefits: ["Improves immunity", "Enhances vision", "Boosts energy"] },
+            { title: "Setu Bandhasana", html: `<iframe title="Setu Bandhasana 3D" width="300" height="200" src="https://sketchfab.com/models/d6b619b573cb4408a85767f3fdd9faf4/embed" frameborder="0" allowfullscreen></iframe>`, description: "Bridge pose for spine and hip strength.", type: "asana", benefits: ["Reduces anxiety", "Improves digestion", "Stimulates thyroid"] },
+            { title: "Dhyana Mudra", html: `<img src="dhyana.jpeg" alt="Dhyana Mudra" width="300" height="200" style="object-fit: cover;">`, description: "Meditative mudra for deep concentration.", type: "mudra", benefits: ["Calms mind", "Aids contemplation", "Balances energy"] },
+            { title: "Janu Sirsasana", html: `<iframe title="Janu Sirsasana 3D" width="300" height="200" src="https://sketchfab.com/models/f1777b46b9344a239cd660a683638278/embed" frameborder="0" allowfullscreen></iframe>`, description: "Head-to-knee forward bend for deep stretch.", type: "asana", benefits: ["Stretches hamstrings", "Improves digestion", "Calms mind"] },
+            { title: "Hakini Mudra", html: `<img src="hakini.jpeg" alt="Hakini Mudra" width="300" height="200" style="object-fit: cover;">`, description: "Mudra to enhance coordination and memory.", type: "mudra", benefits: ["Improves thinking", "Balances brain hemispheres", "Boosts memory"] },
+            { title: "Triang Mukaikapada", html: `<iframe title="Triang Mukaikapada 3D" width="300" height="200" src="https://sketchfab.com/models/ff8d2690ef2a44deb0a31e57be9fd76e/embed" frameborder="0" allowfullscreen></iframe>`, description: "Three-limbed forward bend for deep stretch.", type: "asana", benefits: ["Stretches hamstrings", "Improves flexibility", "Calms mind"] }
+        ];
+    
+        const gallery = document.getElementById('gallery');
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const viewerContainer = document.getElementById('posture-viewer');
+        const detailTitle = document.getElementById('detail-title');
+        const detailType = document.getElementById('detail-type');
+        const detailDescription = document.getElementById('detail-description');
+        const detailBenefits = document.getElementById('detail-benefits');
+        const timerDisplay = document.querySelector('.timer');
+        const timerButton = document.querySelector('.timer-button');
+        let timerInterval;
+        let seconds = 30; // Set initial time to 30 seconds
+        let isTimerRunning = false;
+        
+        // Create audio element for beep sound
+        const beepSound = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU');
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            renderCards(cards);
+            setupEventListeners();
+            updateTimerDisplay();
+        });
+    
+        function renderCards(cardsToRender) {
+            gallery.innerHTML = '';  // Clears gallery before rendering
+    
+            cardsToRender.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = `posture-card ${card.type}`;
+                let mediaContent = card.html;  // Since 3D visualization is embedded as HTML
+    
+                cardElement.innerHTML = `
+                    ${mediaContent}
+                    <div class="posture-info">
+                        <h3>${card.title}</h3>
+                        <p>${card.description}</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="stars">★★★☆☆</div>
+                        </div>
+                    </div>
+                `;
+    
+                cardElement.addEventListener('click', () => showInViewer(card));
+                gallery.appendChild(cardElement);
+            });
+        }
+    
+        function showInViewer(card) {
+            // Clear previous content in the viewer container
+            viewerContainer.innerHTML = '';
+    
+            // Check if the card.html is an iframe or an image
+            if (card.html.includes('<iframe')) {
+                // Create a new iframe with larger dimensions for the viewer
+                const iframe = document.createElement('iframe');
+                iframe.title = `${card.title} 3D`;
+                iframe.width = '100%';
+                iframe.height = '100%';
+                iframe.src = card.html.match(/src="([^"]+)"/)[1]; // Extract the src from the original iframe
+                iframe.frameborder = '0';
+                iframe.allow = 'autoplay; fullscreen; vr';
+                iframe.mozallowfullscreen = 'true';
+                iframe.webkitallowfullscreen = 'true';
+                viewerContainer.appendChild(iframe);
+            } else if (card.html.includes('<img')) {
+                // Create a new img for the viewer
+                const imgSrc = card.html.match(/src="([^"]+)"/)[1];
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.alt = card.title;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'contain';
+                viewerContainer.appendChild(img);
+            }
+    
+            // Update the detail section with title, type, description, and benefits
+            detailTitle.textContent = card.title;
+            detailType.textContent = capitalizeFirstLetter(card.type);
+            detailDescription.textContent = card.description;
+    
+            // Clear and populate the benefits list
+            detailBenefits.innerHTML = '';
+            if (card.benefits) {
+                card.benefits.forEach(benefit => {
+                    const li = document.createElement('li');
+                    li.textContent = benefit;
+                    detailBenefits.appendChild(li);
+                });
+            }
+    
+            // Scroll the viewer into view smoothly
+            document.getElementById('viewer').scrollIntoView({ behavior: 'smooth' });
+    
+            // Reset timer when a new pose is selected
+            resetTimer();
+        }
+    
+        function updateTimerDisplay() {
+            const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+            timerDisplay.textContent = `${mins}:${secs}`;
+        }
+    
+        function resetTimer() {
+            seconds = 30;
+            updateTimerDisplay();
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            timerButton.textContent = '▶';
+            isTimerRunning = false;
+        }
+    
+        function startTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+    
+            isTimerRunning = true;
+            timerButton.textContent = '❚❚';
+    
+            timerInterval = setInterval(() => {
+                seconds--;
+                updateTimerDisplay();
+                
+                if (seconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    isTimerRunning = false;
+                    timerButton.textContent = '▶';
+                    beepSound.play();
+                    seconds = 30;
+                }
+            }, 1000);
+        }
+    
+        function setupEventListeners() {
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+    
+                    const filter = button.dataset.filter;
+                    if (filter === 'all') {
+                        renderCards(cards);
+                    } else {
+                        const filteredCards = cards.filter(card => card.type === filter);
+                        renderCards(filteredCards);
+                    }
+                });
+            });
+    
+            const searchInput = document.querySelector('.search-bar input');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredCards = cards.filter(card =>
+                    card.title.toLowerCase().includes(searchTerm) ||
+                    card.description.toLowerCase().includes(searchTerm)
+                );
+                renderCards(filteredCards);
+            });
+    
+            timerButton.addEventListener('click', () => {
+                if (!isTimerRunning) {
+                    startTimer();
+                } else {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    isTimerRunning = false;
+                    timerButton.textContent = '▶';
+                }
+            });
+        }
+    
+        // Capitalize the first letter of the type for display
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+    </script>
+</body>
+</html>

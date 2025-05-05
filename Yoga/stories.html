@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacred Stories of Yoga</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #e6f2ff;
+            --secondary-blue: #cba588;
+            --accent-blue: #2c3e50;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--accent-blue);
+            overflow-x: hidden;
+        }
+
+        /* Back Button */
+        .back-home {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background-color: var(--secondary-blue);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+        }
+
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background-color: var(--accent-blue);
+        }
+
+        .back-home::before {
+            content: "←";
+            font-size: 1.2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Story Elements in Hero */
+        .story-elements {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+        }
+
+        .story-element {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            width: 300px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .story-element:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .story-element h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .story-element p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Stories Section */
+        .stories-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background-color: var(--white);
+        }
+
+        .story-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .story-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .story-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .story-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .story-card:hover .story-image::after {
+            opacity: 1;
+        }
+
+        .story-content {
+            padding: 2rem;
+        }
+
+        .story-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .story-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-blue);
+            transition: var(--transition);
+        }
+
+        .story-card:hover .story-title::after {
+            width: 100%;
+        }
+
+        .story-description {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .story-importance {
+            background-color: rgba(74, 144, 226, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--secondary-blue);
+        }
+
+        .story-importance h3 {
+            color: var(--secondary-blue);
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .story-importance p {
+            color: var(--text-color);
+        }
+
+        /* Interactive Elements */
+        .read-more {
+            display: inline-block;
+            background-color: var(--secondary-blue);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .read-more::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            background-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .read-more:hover::before {
+            left: 100%;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .story-card {
+                flex-direction: column;
+            }
+
+            .story-image {
+                height: 200px;
+            }
+
+            .story-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <a href="origins.html" class="back-home">Back Home</a>
+        
+        <div class="hero-content">
+            <h1>Sacred Stories of Yoga</h1>
+            <p class="hero-subtitle">Discover the ancient tales that shaped the practice of yoga</p>
+            
+            <div class="story-elements">
+                <div class="story-element animate">
+                    <h3>Shiva: The First Yogi</h3>
+                    <p>The story of how Lord Shiva became the Adi Yogi and imparted the knowledge of yoga to the Saptarishis.</p>
+                </div>
+                <div class="story-element animate">
+                    <h3>Vishnu and Ananta</h3>
+                    <p>The tale of Lord Vishnu's cosmic sleep and the significance of yogic equilibrium.</p>
+                </div>
+                <div class="story-element animate">
+                    <h3>Patanjali's Origin</h3>
+                    <p>The divine birth of Patanjali and his contribution to the Yoga Sutras.</p>
+                </div>
+                <div class="story-element animate">
+                    <h3>Hanuman's Powers</h3>
+                    <p>How Hanuman mastered yoga under Surya's guidance and became a yogic warrior.</p>
+                </div>
+                <div class="story-element animate">
+                    <h3>Hatha Yoga</h3>
+                    <p>The birth of Hatha Yoga through Shiva's teachings to Parvati and Matsyendra.</p>
+                </div>
+                <div class="story-element animate">
+                    <h3>Bhagavad Gita</h3>
+                    <p>Krishna's teachings to Arjuna about the various paths of yoga.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stories-container">
+        <!-- Story 1: Shiva -->
+        <div class="story-card animate">
+            <div class="story-image" style="background-image: url('Adi\ Yogi\ at\ Isha\ Foundation.jpeg');">
+            </div>
+            <div class="story-content">
+                <h2 class="story-title">Shiva: The First Yogi (Adi Yogi)</h2>
+                <p class="story-description">
+                    In the mystical stillness of the ancient Himalayan peaks, Lord Shiva, the eternal ascetic, withdrew from the world and entered a state of deep, transcendental meditation. Seated in absolute stillness for years, he radiated an overwhelming presence of peace, power, and cosmic alignment—so profound that even nature seemed to hold its breath. This divine state of consciousness drew the attention of seven extraordinary sages—later revered as the Saptarishis—who recognized that Shiva had discovered something far beyond ordinary human comprehension. Seeking the secrets of this inner mastery, they humbly approached him, hoping to become his disciples. However, Shiva remained unmoved and silent, testing their dedication. For 84 long years, the sages practiced intense austerities and meditated with unwavering discipline, aligning their minds and bodies to the rhythms of the cosmos.
+
+                    Eventually, their persistence bore fruit. On the sacred night of Guru Purnima, by the tranquil waters of Lake Kantisarovar near Mount Kailash, Lord Shiva opened his eyes and accepted them as his disciples. There, he assumed the role of the Adi Guru (the first teacher) and began to impart the ancient and profound science of yoga. What he taught was not a set of rituals, but an intricate system to elevate human consciousness—covering physical discipline, mental clarity, emotional balance, and spiritual awakening. He revealed different branches of yoga, including Hatha Yoga (physical postures), Jnana Yoga (path of wisdom), Bhakti Yoga (devotion), Karma Yoga (selfless action), and Kriya Yoga (energy control).
+                    
+                    Each of the Saptarishis absorbed a unique dimension of this cosmic knowledge and carried it across different parts of the world, forming the foundation of diverse spiritual traditions. This event marks the birth of yoga—not as a religious belief, but as a science of self-realization and inner transformation that is open to all humanity. The story emphasizes that yoga is not merely a physical practice but a holistic path designed to help human beings realize their highest potential. Today, the occasion of Guru Purnima is celebrated to honor this divine transmission and the timeless lineage of teachers who continue to guide seekers on the yogic path.
+                </p>
+                <div class="story-importance">
+                    <h3>Significance</h3>
+                    <p>This foundational story represents the essence of yoga as a path to transcendence. Shiva's teachings form the bedrock of various yogic systems, including Hatha Yoga, Tantra, and Kriya. The story emphasizes that yoga is not just physical exercise but a means to access higher states of consciousness and balance the fundamental energies within us.</p>
+                </div>
+                <a href="#" class="read-more">Read More</a>
+            </div>
+        </div>
+
+        <!-- Story 2: Vishnu -->
+        <div class="story-card animate">
+            <div class="story-image" style="background-image: url('serpentananta.jpeg');">
+            </div>
+            <div class="story-content">
+                <h2 class="story-title">Lord Vishnu and the Serpent Ananta</h2>
+                <p class="story-description">
+                    In the vast, boundless expanse of the primordial cosmic ocean—symbolizing the infinite field of universal consciousness and pure potential—Lord Vishnu, the eternal preserver and protector of all creation, reclines in a serene, transcendental state known as Yogic Nidra (cosmic sleep). He rests effortlessly upon Ananta Shesha, the thousand-headed celestial serpent whose limitless coils float upon the waters and represent the eternal cycle of time (Kala) and infinite cosmic energy. Each of Ananta's hoods holds the stars and galaxies, signifying the unending expanse of the universe, while his stable support of Vishnu emphasizes the foundation of cosmic order and balance (Dharma).
+
+This is not mere physical rest, but a supreme yogic state of meditative stillness—Turiya, the fourth state of consciousness—wherein Vishnu remains fully aware, yet detached, untouched by the ever-turning wheel of Samsara (birth, life, death, and rebirth). He is the divine witness, resting in eternal peace while the drama of creation unfolds around him. From the lotus that gracefully blooms from his navel arises Lord Brahma, the creator deity, who begins to weave the fabric of the material universe. This emergence from Vishnu's stillness signifies a profound yogic truth: that all manifest reality arises from the still source of inner consciousness, from silence, unity, and divine equilibrium.
+
+This cosmic tableau—of Vishnu in Yogic Nidra, Ananta Shesha cradling existence, and Brahma initiating creation—offers a powerful metaphor for yogic philosophy. It illustrates how the universe is not born from chaos, but from perfect balance and inner alignment. Just as Vishnu maintains the cosmos through inner stillness, the yogi too must cultivate a calm and steady mind, undisturbed by external turbulence. In this way, Vishnu's eternal repose becomes a guiding symbol for the yogic seeker: to rest in awareness, harmonize with the rhythms of nature, and recognize that true power and creation come not from force, but from silence, surrender, and supreme inner peace.
+                </p>
+                <div class="story-importance">
+                    <h3>Significance</h3>
+                    <p>Vishnu's state symbolizes the ultimate goal of yoga practice - achieving perfect stillness and stability of mind amidst the chaos of existence. This story teaches us that true yoga is about maintaining inner peace regardless of external circumstances.</p>
+                </div>
+                <a href="#" class="read-more">Read More</a>
+            </div>
+        </div>
+
+        <!-- Story 3: Patanjali -->
+        <div class="story-card animate">
+            <div class="story-image" style="background-image: url('patanjali.jpeg');">
+            </div>
+            <div class="story-content">
+                <h2 class="story-title">Patanjali's Divine Origin</h2>
+                <p class="story-description">
+                    In the celestial realm, the cosmic serpent Adishesha—the thousand-headed companion of Lord Vishnu—gazed upon the Earth and was deeply moved by the suffering, confusion, and restlessness that plagued humanity. Though he upheld the universe through divine strength and stillness, he realized that human beings lacked a clear path to inner peace and self-realization. Desiring to guide them toward liberation, he sought permission from Lord Vishnu to incarnate on Earth in a human form to teach the science of yoga.
+
+                    Vishnu, recognizing the sacred intention, blessed Adishesha's descent. At the appointed moment, a devout woman named Gonika, a great yogini and seeker, stood on the banks of a river, praying fervently to the Divine for a worthy son or disciple to whom she could pass on her spiritual wisdom. With a heart full of devotion, she scooped a handful of water in her palms and offered it to the heavens, asking for guidance.
+                    
+                    It was at that exact moment that Adishesha descended from the celestial plane, appearing as a tiny radiant serpent who gracefully fell into her outstretched hands. Instantly, he transformed into a human child—glowing with divine brilliance. Overwhelmed with awe and reverence, Gonika accepted the child as her son, naming him Patanjali (“pat” meaning “to fall” and “anjali” meaning “offering with folded hands”).
+                    
+                    As he grew, Patanjali became a sage of extraordinary wisdom and discipline. Understanding the fragmented spiritual practices across the land, he undertook the divine task of systematizing yoga into a coherent and accessible path. Through his seminal work, the Yoga Sutras, he codified the ancient knowledge of yoga into the Ashtanga Yoga system—the Eightfold Path, including Yama (ethics), Niyama (self-discipline), Asana (posture), Pranayama (breath control), Pratyahara (withdrawal of senses), Dharana (concentration), Dhyana (meditation), and Samadhi (absorption or enlightenment).
+                    
+                    Patanjali's birth and teachings are thus considered not just scholarly, but divinely inspired. His origin story serves as a powerful symbol: that yoga is a sacred, compassionate gift from the cosmos, intended to lead humankind from suffering to liberation. His divine legacy continues to guide millions of practitioners on their inner journey toward harmony, awareness, and bliss.
+                </p>
+                <div class="story-importance">
+                    <h3>Significance</h3>
+                    <p>Patanjali's contribution to yoga is immeasurable. His Yoga Sutras provide the philosophical foundation for modern yoga practice, offering a structured approach to spiritual development through the Eightfold Path.</p>
+                </div>
+                <a href="#" class="read-more">Read More</a>
+            </div>
+        </div>
+
+        <!-- Story 4: Hanuman -->
+        <div class="story-card animate">
+            <div class="story-image" style="background-image: url('hanuman.jpeg');">
+                <!-- Image placeholder for Hanuman -->
+            </div>
+            <div class="story-content">
+                <h2 class="story-title">Hanuman's Yogic Powers</h2>
+                <p class="story-description">
+                    In the epic saga of the Ramayana, Hanuman, the monkey god and eternal devotee of Lord Rama, is revered not only for his immense strength and loyalty but also for his profound mastery over the inner disciplines of yoga. Born to Anjana and the wind god Vayu, Hanuman was gifted with supernatural abilities from birth—his very breath carrying the prana (life force) of the cosmos. However, it was under the tutelage of Surya, the Sun God, that Hanuman truly transformed into a yogic warrior-sage.
+
+                    Driven by an insatiable thirst for knowledge and spiritual growth, the young Hanuman approached Surya and requested to become his disciple. Though initially hesitant—since Surya was constantly in motion across the sky—Hanuman assured him that he would match his pace, learning while flying alongside him. Impressed by his determination and devotion, Surya accepted him as a student. As they soared through the heavens, Hanuman learned the sacred sciences of pranayama (breath control), asana (physical discipline), dharana (concentration), and mantra (sacred sound).
+                    
+                    Through pranayama, Hanuman harnessed immense inner power, enabling him to leap across oceans in a single bound. With asana, he gained perfect control over his body, allowing him to shift size—from becoming as small as a cat to as gigantic as a mountain—demonstrating mastery over the physical realm. His unwavering concentration and single-pointed devotion to Lord Rama reflect the yogic ideal of complete mental stillness and focus (dharana). Even in the heat of battle or moments of despair, Hanuman remained centered, fearless, and compassionate—hallmarks of a true yogi.
+                    
+                    One of the most iconic moments that reflects his yogic mastery is when Hanuman crosses the ocean to reach Lanka in search of Sita. As he soars through the sky, he faces numerous obstacles—mountains that test his strength, divine beings that test his humility, and illusions that test his perception. Yet with each challenge, Hanuman remains unfazed, using not brute force, but wisdom, breath control, and yogic intuition to overcome them.
+                    
+                    Hanuman's life is thus not just a tale of heroism, but a living embodiment of yogic ideals—discipline, humility, strength, devotion, and balance. He represents the boundless potential that arises when physical power is united with spiritual wisdom. Even today, practitioners of yoga and martial arts invoke Hanuman's name and spirit to cultivate courage, flexibility, and unwavering dedication.
+                    
+                    
+                </p>
+                <div class="story-importance">
+                    <h3>Significance</h3>
+                    <p>Hanuman's story exemplifies the perfect combination of bhakti (devotion), physical mastery, and mental discipline. His life teaches us that yoga is not just about physical postures but about developing inner strength and unwavering focus.</p>
+                </div>
+                <a href="#" class="read-more">Read More</a>
+            </div>
+        </div>
+
+        <!-- Story 5: Hatha Yoga -->
+        <div class="story-card animate">
+            <div class="story-image" style="background-image: url('hatha yoga.jpeg');">
+                <!-- Image placeholder for Hatha Yoga -->
+            </div>
+            <div class="story-content">
+                <h2 class="story-title">The Birth of Hatha Yoga</h2>
+                <p class="story-description">
+                    Long ago, in the stillness of a secluded island surrounded by the infinite ocean, Lord Shiva, the great Adiyogi (first yogi), sat in deep communion with his eternal consort, Goddess Parvati. In this serene and mystical setting, he began to reveal the profound secrets of Hatha Yoga—the path of physical discipline and energetic balance. Shiva spoke of the union of the sun (Ha) and the moon (Tha), the forces within the body that must be harmonized through posture (asana), breath (pranayama), and inner awareness.
+
+                    As Parvati listened with devotion, a small fish swam nearby in the water, quietly drawn toward the sacred vibrations of this conversation. Hidden beneath the surface, the fish became utterly still—no longer moving, just listening. So intense was its concentration and so deep was its surrender that it absorbed the teachings entirely, attaining a meditative trance beyond its natural state.
+                    
+                    When Shiva completed his discourse, he sensed a presence other than Parvati had received the knowledge. With his divine perception, he discovered the motionless fish and realized that it had not only heard the teachings but had understood them at the deepest level. Moved by the fish's devotion and transformation, Shiva chose to bless it. In a moment of divine grace, he transformed the fish into a human sage—a being of great wisdom—naming him Matsyendra, meaning "Lord of the Fish."
+                    
+                    Matsyendra became the first human teacher of Hatha Yoga, carrying forth the teachings to the world. He is revered as the founder of the Nath tradition, which gave rise to great yogis like Gorakhnath, who further systematized Hatha Yoga practices. Through Matsyendra, the wisdom that was once a divine whisper in the waves became a living discipline, empowering human beings to balance their energies, awaken their potential, and unite the body and mind in preparation for higher spiritual realization.
+                    
+                    Thus, the story of Hatha Yoga's birth is not merely a tale of divine instruction—it is a symbol of how pure intent, silence, and deep receptivity can awaken transformation, even in the most unlikely forms of life. It reminds yogis that through unwavering focus and humility, anyone—regardless of form—can receive and transmit the light of sacred knowledge.
+                </p>
+                <div class="story-importance">
+                    <h3>Significance</h3>
+                    <p>This story marks the beginning of the Nath tradition and the formalization of Hatha Yoga. It emphasizes that yoga knowledge can be received by anyone who is truly receptive and devoted, regardless of their form or status.</p>
+                </div>
+                <a href="#" class="read-more">Read More</a>
+            </div>
+        </div>
+
+        <!-- Story 6: Bhagavad Gita -->
+        <div class="story-card animate">
+            <div class="story-image" style="background-image: url('gita.jpeg');">
+                <!-- Image placeholder for Bhagavad Gita -->
+            </div>
+            <div class="story-content">
+                <h2 class="story-title">Yoga in the Bhagavad Gita</h2>
+                <p class="story-description">
+                    Amidst the roaring chariots and war cries on the battlefield of Kurukshetra, stood the warrior prince Arjuna, torn by inner turmoil. Before him stood his own kin—teachers, cousins, and elders—ready to fight to the death in a war destined to reshape dharma (righteousness) in the world. Overwhelmed by grief, confusion, and moral dilemma, Arjuna's bow slipped from his hand. His spirit wavered. "How can I slay those whom I love and revere?" he asked, as despair clouded his sense of purpose.
+
+                    At this pivotal moment, Lord Krishna, Arjuna's charioteer and divine guide, revealed his cosmic wisdom. With infinite patience, Krishna began to unfold the timeless philosophy of yoga as the true path to inner strength, clarity, and liberation. This sacred conversation became known as the Bhagavad Gita, one of the most profound spiritual texts of all time.
+                    
+                    Krishna explained that yoga was not limited to physical postures, but a deep and practical science of living. He introduced Karma Yoga—the yoga of selfless action—teaching that one must perform their duty without attachment to results, dedicating all actions to the Divine. Next, he spoke of Bhakti Yoga, the path of devotion, in which love and surrender to God dissolve the ego and purify the heart. Then came Jnana Yoga, the path of knowledge and inner inquiry, where the seeker transcends illusion through the realization of the eternal Self (Atman).
+                    
+                    Krishna urged Arjuna to see beyond the temporary forms of life and death, pleasure and pain, and to recognize the indestructible spirit within all beings. Through yoga, Krishna said, one attains equanimity—the steady mind that is untouched by external circumstances. He revealed his universal form (Vishwarupa), dazzling and infinite, showing that all creation and destruction arise from him. This divine vision awakened Arjuna's soul and removed his doubt.
+                    
+                    Transformed by Krishna's teachings, Arjuna rose with clarity and courage. No longer bound by fear or confusion, he picked up his bow, ready to fight—not out of hatred, but as an instrument of dharma. The battle became not just a war of kingdoms, but a symbolic battlefield of the soul—where yoga became the bridge between human suffering and divine liberation.
+                    
+                    
+                </p>
+                <div class="story-importance">
+                    <h3>Significance</h3>
+                    <p>The Bhagavad Gita presents yoga as a complete life philosophy, offering multiple paths to spiritual realization. It teaches that yoga is not just about physical postures but about living a balanced, purposeful life in harmony with universal principles.</p>
+                </div>
+                <a href="#" class="read-more">Read More</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add animation classes to elements when they come into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.story-card');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.classList.add('animate');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
