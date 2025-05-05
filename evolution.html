@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution of Yoga Through Time</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e6f2ff;
+            --secondary-color: #cba588;
+            --accent-color: #2c3e50;
+            --text-color: #333;
+            --light-text: #666;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--accent-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--white) 100%);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .period-section {
+            margin: 4rem 0;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .period-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .period-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .text-content {
+            padding: 1rem;
+        }
+
+        .image-content {
+            text-align: center;
+        }
+
+        .image-content img {
+            max-width: 100%;
+            height: 400px;
+            width: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .quote-button {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .quote-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .quote-display {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            font-style: italic;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .key-points {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .key-points ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+
+        .key-points li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .key-points li::before {
+            content: "•";
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .period-content {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Back Button Styles */
+        .back-button {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .back-button::before {
+            content: "←";
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                top: auto;
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        /* Back Button */
+        .back-home {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+        }
+
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background-color: var(--accent-color);
+        }
+
+        .back-home::before {
+            content: "←";
+            font-size: 1.2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Story Elements in Hero */
+        .story-elements {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .story-element {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            width: 300px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .story-element:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .story-element h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .story-element p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <a href="origins.html" class="back-home">Back Home</a>
+        
+        <div class="hero-content">
+            <h1 style="color: white;">The Evolution of Yoga</h1>
+            <p class="hero-subtitle">A journey through time from ancient texts to modern practice</p>
+            
+            <div class="story-elements">
+                <div class="story-element animate">
+                    <h3>Vedic Period</h3>
+                    <p>Discover the earliest references to yoga in the Rig Veda and the foundation of yogic practices.</p>
+                </div>
+                <div class="story-element animate">
+                    <h3>Upanishadic Era</h3>
+                    <p>Explore the philosophical foundations and the concept of self-realization in yoga.</p>
+                </div>
+                <div class="story-element animate">
+                    <h3>Classical Yoga</h3>
+                    <p>Learn about Patanjali's Yoga Sutras and the systematization of yoga practices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <section class="period-section" id="vedic">
+            <div class="period-header">
+                <h2>Vedic Period (1500 BCE - 800 BCE)</h2>
+                <button class="quote-button" onclick="showQuote('vedic')">Show Quote</button>
+            </div>
+            <div class="period-content">
+                <div class="text-content">
+                    <h3>The Dawn of Yoga</h3>
+                    <p>The Vedic period marks the earliest references to yoga in the Rig Veda, the oldest of the four Vedas. This era focused on ritualistic practices and sacrifices, with the concept of 'tapas' (austerity) and 'dhyana' (meditation) forming the foundation of early yogic practices. The Vedas contain hymns and mantras that were used in spiritual practices, laying the groundwork for later developments in yoga.</p>
+                    <div class="key-points">
+                        <h4>Key Developments:</h4>
+                        <ul>
+                            <li>First mentions of meditation in the Rig Veda</li>
+                            <li>Introduction of Vedic mantras and rituals</li>
+                            <li>Early concepts of breath control (pranayama)</li>
+                            <li>Development of sacrificial rituals (yajna)</li>
+                            <li>Concept of tapas (austerity) emerges</li>
+                        </ul>
+                    </div>
+                    <div id="vedic-quote" class="quote-display">
+                        <p>"The wise see that there is action in the midst of inaction and inaction in the midst of action." - Rig Veda</p>
+                    </div>
+                </div>
+                <div class="image-content">
+                    <img src="vedicimage.jpeg" alt="Vedic Period Yoga" style="height: 400px; width: 400px;">
+                </div>
+            </div>
+        </section>
+
+        <section class="period-section" id="upanishadic">
+            <div class="period-header">
+                <h2>Upanishadic Period (800 BCE - 500 BCE)</h2>
+                <button class="quote-button" onclick="showQuote('upanishadic')">Show Quote</button>
+            </div>
+            <div class="period-content">
+                <div class="text-content">
+                    <h3>Philosophical Foundations</h3>
+                    <p>The Upanishads, known as Vedanta (end of the Vedas), introduced profound philosophical concepts that transformed yoga practice. This period saw the development of self-realization and the concept of Brahman (universal consciousness). The Katha Upanishad specifically discusses yoga as a means to self-realization, introducing concepts that would become central to yoga philosophy.</p>
+                    <div class="key-points">
+                        <h4>Key Developments:</h4>
+                        <ul>
+                            <li>Concept of Atman (individual soul) and Brahman</li>
+                            <li>Introduction of meditation techniques</li>
+                            <li>Development of philosophical foundations</li>
+                            <li>Focus on self-realization and liberation</li>
+                            <li>Integration of spiritual practices</li>
+                        </ul>
+                    </div>
+                    <div id="upanishadic-quote" class="quote-display">
+                        <p>"When the five senses and the mind are still, and reason itself rests in silence, then begins the Path supreme." - Katha Upanishad</p>
+                    </div>
+                </div>
+                <div class="image-content">
+                    <img src="upanishadimage.jpeg" alt="Upanishadic Period Yoga" style="height: 400px; width: 400px;">
+                </div>
+            </div>
+        </section>
+
+        <section class="period-section" id="pre-classical">
+            <div class="period-header">
+                <h2>Pre-Classical Period (500 BCE - 200 BCE)</h2>
+                <button class="quote-button" onclick="showQuote('pre-classical')">Show Quote</button>
+            </div>
+            <div class="period-content">
+                <div class="text-content">
+                    <h3>Diversification of Yoga</h3>
+                    <p>This era saw the emergence of two major philosophical schools: Buddhism and Jainism, both incorporating yogic practices. The Bhagavad Gita, a seminal text, was composed during this period, introducing the concepts of Karma Yoga, Bhakti Yoga, and Jnana Yoga. This period marked a significant expansion in the understanding and practice of yoga.</p>
+                    <div class="key-points">
+                        <h4>Key Developments:</h4>
+                        <ul>
+                            <li>Bhagavad Gita's comprehensive yoga teachings</li>
+                            <li>Integration of yoga in Buddhist practices</li>
+                            <li>Development of multiple yoga paths</li>
+                            <li>Introduction of Karma, Bhakti, and Jnana Yoga</li>
+                            <li>Expansion of meditation techniques</li>
+                        </ul>
+                    </div>
+                    <div id="pre-classical-quote" class="quote-display">
+                        <p>"Yoga is the journey of the self, through the self, to the self." - Bhagavad Gita</p>
+                    </div>
+                </div>
+                <div class="image-content">
+                    <img src="preclassical.jpeg" alt="Pre-Classical Period Yoga" style="height: 400px; width: 400px;">
+                </div>
+            </div>
+        </section>
+
+        <section class="period-section" id="classical">
+            <div class="period-header">
+                <h2>Classical Period (200 BCE - 800 CE)</h2>
+                <button class="quote-button" onclick="showQuote('classical')">Show Quote</button>
+            </div>
+            <div class="period-content">
+                <div class="text-content">
+                    <h3>Systematization of Yoga</h3>
+                    <p>Patanjali's Yoga Sutras, composed during this period, systematized yoga into the eight-limbed path (Ashtanga Yoga). This text became the foundation of classical yoga philosophy and practice, emphasizing meditation and mental discipline. The Yoga Sutras provided a comprehensive framework for understanding and practicing yoga.</p>
+                    <div class="key-points">
+                        <h4>Key Developments:</h4>
+                        <ul>
+                            <li>Systematization of yoga practices</li>
+                            <li>Introduction of the eight limbs of yoga</li>
+                            <li>Focus on meditation and mental discipline</li>
+                            <li>Development of systematic philosophy</li>
+                            <li>Integration of ethical principles</li>
+                        </ul>
+                    </div>
+                    <div id="classical-quote" class="quote-display">
+                        <p>"Yoga is the cessation of the fluctuations of the mind." - Yoga Sutras 1.2</p>
+                    </div>
+                </div>
+                <div class="image-content">
+                    <img src="classical.jpeg" alt="Classical Period Yoga" style="height: 400px; width: 400px;">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Quote display functionality
+        function showQuote(period) {
+            const quoteElement = document.getElementById(`${period}-quote`);
+            const allQuotes = document.querySelectorAll('.quote-display');
+            
+            // Hide all quotes first
+            allQuotes.forEach(quote => {
+                quote.style.display = 'none';
+            });
+            
+            // Toggle the selected quote
+            if (quoteElement.style.display === 'none') {
+                quoteElement.style.display = 'block';
+            } else {
+                quoteElement.style.display = 'none';
+            }
+        }
+
+        // Animation on scroll
+        const sections = document.querySelectorAll('.period-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

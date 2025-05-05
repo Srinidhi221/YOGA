@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Origins - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #cbb3a1;
+            --secondary-blue: #2c3e50;
+            --accent-blue: #2c3e50;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-blue);
+        }
+
+        /* Header Styles */
+        .main-header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-blue);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Navigation Cards */
+        .nav-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .nav-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 350px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .nav-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background-color: #c9c5c5;
+        }
+
+        .nav-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .nav-card p {
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-blue);
+        }
+
+        /* Origins Section */
+        .origins-section {
+            padding: 6rem 2rem;
+            background-color: var(--secondary-blue);
+            color: var(--white);
+            
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .decorative-line {
+            width: 100px;
+            height: 3px;
+            background-color: var(--secondary-blue);
+            margin: 1rem auto;
+        }
+
+        .origins-content {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .origins-text {
+            flex: 1;
+        }
+
+        .discovery-card {
+            background-color: var(--primary-blue);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 6rem 2rem;
+            background-color: var(--primary-blue);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--secondary-blue);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary-blue);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 55%;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: 55%;
+        }
+
+        /* Philosophy Section */
+        .philosophy-section {
+            padding: 6rem 2rem;
+            background-color: var(--white);
+        }
+
+        .philosophy-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .philosophy-card {
+            background-color: var(--primary-blue);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .philosophy-card ul {
+            list-style-position: inside;
+            margin-top: 1rem;
+        }
+
+        .philosophy-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modern Section */
+        .modern-section {
+            padding: 6rem 2rem;
+            background-color: var(--primary-blue);
+        }
+
+        .modern-content {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .modern-text {
+            flex: 1;
+        }
+
+        .join-button {
+            background-color: var(--secondary-blue);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .join-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Footer */
+        .main-footer {
+            background-color: var(--accent-blue);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: var(--secondary-blue);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .newsletter-form button {
+            background-color: var(--secondary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .origins-content,
+            .modern-content {
+                flex-direction: column;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: 100%;
+                margin-left: 60px !important;
+            }
+
+            .timeline-date {
+                left: 30px;
+                transform: translateX(-50%);
+            }
+
+            .nav-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        /* Animation Classes */
+        .animate {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="nav-container">
+            <div class="logo">
+                <span class="yoga">yoga</span>
+                <span class="off">off</span>
+                <span class="east">east</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="evolution.html">Evolution</a></li>
+                <li><a href="heritage.html">Heritage</a></li>
+                <li><a href="stories.html">Legends</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 style="color: white;">Welcome to Yoga Origins</h1>
+                <p class="hero-subtitle">Explore the rich history and evolution of yoga through time</p>
+                
+                <div class="nav-cards">
+                    <a href="evolution.html" class="nav-card animate">
+                        <div class="icon">📜</div>
+                        <h3>Evolution of Yoga</h3>
+                        <p>Journey through the different periods of yoga's development, from ancient times to modern practice.</p>
+                    </a>
+                    
+                    <a href="heritage.html" class="nav-card animate">
+                        <div class="icon">🎭</div>
+                        <h3>Cultural Significance</h3>
+                        <p>Discover how yoga has influenced and been shaped by various cultures throughout history.</p>
+                    </a>
+                    
+                    <a href="stories.html" class="nav-card animate">
+                        <div class="icon">📖</div>
+                        <h3>Sacred Stories</h3>
+                        <p>Explore the ancient legends and myths that form the foundation of yoga's spiritual heritage.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="origins" class="origins-section">
+            <div class="section-header">
+                <h2 style="color: white;">The Birth of Yoga</h2>
+                <div class="decorative-line"></div>
+            </div>
+            <div class="origins-content">
+                <div class="origins-text">
+                    <h3>Indus Valley Civilization (3300–1300 BCE)</h3>
+                    <p>The Indus Valley Civilization, which flourished between 3300-1300 BCE, has yielded significant archaeological discoveries that shed light on the origins of yoga. Excavations have uncovered seals depicting figures in meditative postures, such as the "Pasupati Seal," which suggests a connection to early yogic practices. These findings imply that yoga's roots are ancient, and the civilization's emphasis on spiritual practices and physical postures may have laid the groundwork for later yogic traditions. The sophisticated urban planning and architecture of Indus Valley cities also indicate a high level of cultural sophistication, which likely facilitated the development of complex spiritual and philosophical practices like yoga. Furthermore, the civilization's interactions with other ancient cultures may have shaped the evolution of yoga, influencing its spread and adaptation across the Indian subcontinent. Overall, the Indus Valley Civilization's discoveries provide valuable insights into the early history of yoga, highlighting its deep roots in ancient Indian culture.</p>
+                    <div class="discovery-card">
+                        <h4>The Pashupati Seal: A Window into Ancient Yoga</h4>
+                        <div class="seal-container">
+                            <div class="seal-image">
+                                <div class="image-caption">The Pashupati Seal, circa 2500 BCE</div>
+                            </div>
+                            <div class="seal-description">
+                                <p>The Pashupati seal, discovered in 1928-29 during excavations at Mohenjo-daro, is one of the most significant archaeological finds related to early yoga practices. This steatite seal, dating back to approximately 2500 BCE, depicts a figure seated in what appears to be a meditative posture, surrounded by animals.</p>
+                                
+                                <div class="seal-details">
+                                    <h5>Key Features of the Seal:</h5>
+                                    <ul>
+                                        <li><strong>Central Figure:</strong> The main figure is shown in a cross-legged posture, with arms extended and resting on the knees, similar to modern meditation postures.</li>
+                                        <li><strong>Animal Companions:</strong> The figure is surrounded by four animals: an elephant, tiger, rhinoceros, and buffalo, with two deer-like figures beneath the seat.</li>
+                                        <li><strong>Headgear:</strong> The figure wears a distinctive headdress with horns, suggesting a possible connection to early spiritual practices.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="origins-image">
+                    <img src="Indus Valley Civilisation -Chronology, Writing Scripts,Seals.jpeg" alt="Indus Valley Civilization" style="height: 400px; width: 400px;">
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline" class="timeline-section">
+            <h2>The Evolution of Yoga</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">1500 BCE</div>
+                    <div class="timeline-content">
+                        <h3>Vedic Period</h3>
+                        <p>The earliest references to yoga appear in the Rig Veda, the oldest of the four Vedas. During this period, yoga was primarily focused on ritualistic practices and sacrifices. The concept of 'tapas' (austerity) and 'dhyana' (meditation) were introduced, laying the foundation for later yogic practices.</p>
+                        <div class="timeline-details">
+                            <ul>
+                                <li>Rig Veda mentions the practice of meditation</li>
+                                <li>Introduction of Vedic mantras and rituals</li>
+                                <li>Early concepts of breath control (pranayama)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">800 BCE</div>
+                    <div class="timeline-content">
+                        <h3>Upanishadic Period</h3>
+                        <p>The Upanishads, known as Vedanta (end of the Vedas), introduced profound philosophical concepts. This period saw the development of self-realization and the concept of Brahman (universal consciousness). The Katha Upanishad specifically discusses yoga as a means to self-realization.</p>
+                        <div class="timeline-details">
+                            <ul>
+                                <li>Concept of Atman (individual soul) and Brahman</li>
+                                <li>Introduction of meditation techniques</li>
+                                <li>Development of philosophical foundations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">500 BCE</div>
+                    <div class="timeline-content">
+                        <h3>Pre-Classical Period</h3>
+                        <p>This era saw the emergence of two major philosophical schools: Buddhism and Jainism, both incorporating yogic practices. The Bhagavad Gita, a seminal text, was composed during this period, introducing the concepts of Karma Yoga, Bhakti Yoga, and Jnana Yoga.</p>
+                        <div class="timeline-details">
+                            <ul>
+                                <li>Bhagavad Gita's comprehensive yoga teachings</li>
+                                <li>Integration of yoga in Buddhist practices</li>
+                                <li>Development of multiple yoga paths</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">200 BCE</div>
+                    <div class="timeline-content">
+                        <h3>Classical Period</h3>
+                        <p>Patanjali's Yoga Sutras, composed during this period, systematized yoga into the eight-limbed path (Ashtanga Yoga). This text became the foundation of classical yoga philosophy and practice, emphasizing meditation and mental discipline.</p>
+                        <div class="timeline-details">
+                            <ul>
+                                <li>Systematization of yoga practices</li>
+                                <li>Introduction of the eight limbs of yoga</li>
+                                <li>Focus on meditation and mental discipline</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">800 CE</div>
+                    <div class="timeline-content">
+                        <h3>Post-Classical Period</h3>
+                        <p>This period saw the development of Hatha Yoga, focusing on physical postures and breath control. Texts like Hatha Yoga Pradipika and Gheranda Samhita were composed, emphasizing the purification of the body as a means to spiritual enlightenment.</p>
+                        <div class="timeline-details">
+                            <ul>
+                                <li>Development of Hatha Yoga practices</li>
+                                <li>Focus on physical postures (asanas)</li>
+                                <li>Integration of tantric practices</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">1800 CE</div>
+                    <div class="timeline-content">
+                        <h3>Modern Period</h3>
+                        <p>The modern era saw yoga's introduction to the West, with pioneers like Swami Vivekananda and later teachers adapting traditional practices for contemporary audiences. This period witnessed the development of various yoga styles and the global spread of yoga practice.</p>
+                        <div class="timeline-details">
+                            <ul>
+                                <li>Global spread of yoga practices</li>
+                                <li>Development of modern yoga styles</li>
+                                <li>Integration with Western fitness culture</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="philosophy" class="philosophy-section">
+            <div class="philosophy-content">
+                <h2>The Philosophy Behind Yoga</h2>
+                <div class="philosophy-grid">
+                    <div class="philosophy-card">
+                        <h3>Eight Limbs of Yoga</h3>
+                        <ul>
+                            <li>Yama (Ethical Standards)</li>
+                            <li>Niyama (Self-Discipline)</li>
+                            <li>Asana (Postures)</li>
+                            <li>Pranayama (Breath Control)</li>
+                            <li>Pratyahara (Withdrawal of Senses)</li>
+                            <li>Dharana (Concentration)</li>
+                            <li>Dhyana (Meditation)</li>
+                            <li>Samadhi (Bliss)</li>
+                        </ul>
+                    </div>
+                    <div class="philosophy-card">
+                        <h3>Core Principles</h3>
+                        <p>Yoga is a multifaceted practice that encompasses more than just physical postures; it's a journey of self-discovery and spiritual exploration. At its core, yoga seeks to unite the mind, body, and spirit, fostering a deeper understanding of oneself and the world. The ancient yogis believed that by cultivating physical, mental, and spiritual awareness, individuals could transcend the limitations of the ego and realize their true nature. Through practices like meditation, breath control, and mindful movement, yoga provides a path to inner peace, balance, and spiritual growth. By embracing yoga's holistic approach, practitioners can experience profound transformations, leading to greater self-awareness, compassion, and connection to the world around them. Ultimately, yoga offers a timeless wisdom that guides individuals toward a more authentic, meaningful, and fulfilling life.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="modern" class="modern-section">
+            <h2>Yoga in the Modern World</h2>
+            <div class="modern-content">
+                <div class="modern-text">
+                    <p>Today, yoga has evolved into various styles and practices, but its ancient wisdom remains relevant. At Yoga off East, we honor these traditions while making them accessible to modern practitioners.</p>
+                    <button class="join-button">Join Our Community</button>
+                </div>
+                <div class="modern-image">
+                    <img src="modernyogasource.jpeg" alt="Modern Yoga Practice" style="height: 200px; width: 200px;">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Yoga off East</h3>
+                <p>324 Blackwell Street (Bay 5, 2nd floor)<br>Durham, NC 27701</p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-icon">Facebook</a>
+                    <a href="#" class="social-icon">Instagram</a>
+                    <a href="#" class="social-icon">Twitter</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Yoga off East. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('.main-header');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                header.classList.remove('scroll-up');
+                return;
+            }
+            
+            if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
+                // Scroll Down
+                header.classList.remove('scroll-up');
+                header.classList.add('scroll-down');
+            } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
+                // Scroll Up
+                header.classList.remove('scroll-down');
+                header.classList.add('scroll-up');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Timeline animation
+        const timelineItems = document.querySelectorAll('.timeline-item');
+
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        timelineItems.forEach(item => {
+            observer.observe(item);
+        });
+
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('input[type="email"]').value;
+            
+            // Here you would typically send the email to your server
+            alert('Thank you for subscribing to our newsletter!');
+            newsletterForm.reset();
+        });
+
+        // CTA button animation
+        const ctaButton = document.querySelector('.cta-button');
+        ctaButton.addEventListener('mouseover', () => {
+            ctaButton.style.transform = 'translateY(-5px)';
+            ctaButton.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.15)';
+        });
+
+        ctaButton.addEventListener('mouseout', () => {
+            ctaButton.style.transform = 'translateY(0)';
+            ctaButton.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        });
+
+        // Add animation classes to elements when they come into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.origins-content, .philosophy-card, .modern-content');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.classList.add('animate');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Add loading animation for images
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('load', () => {
+                img.classList.add('loaded');
+            });
+        });
+    </script>
+</body>
+</html>

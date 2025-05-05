@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SereneMind - Voice Meditation Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #cba588;
+            --primary-light: #cba588;
+            --dark: #23283b;
+            --darker: #0f151a;
+            --light: #f5f6fa;
+            --accent: #cba588;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(108, 92, 231, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, #cba588 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--light);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        
+        nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 300;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--light);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .main-content {
+            display: flex;
+            flex: 1;
+            gap: 2rem;
+        }
+        
+        .sidebar {
+            width: 300px;
+            padding: 1.5rem;
+            background-color: rgba(30, 39, 46, 0.7);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .meditation-programs {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .program {
+            padding: 0.8rem 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+        
+        .program:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid var(--accent);
+        }
+        
+        .program.active {
+            background-color: rgba(0, 206, 201, 0.1);
+            border-left: 3px solid var(--accent);
+        }
+        
+        .program-name {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        
+        .program-duration {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(30, 39, 46, 0.7);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .chat-title {
+            font-weight: 500;
+        }
+        
+        .chat-status {
+            font-size: 0.8rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .chat-status::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .message {
+            max-width: 70%;
+            padding: 1rem 1.2rem;
+            border-radius: 15px;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+            background-color: rgba(108, 92, 231, 0.2);
+            border-bottom-left-radius: 5px;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background-color: rgba(0, 206, 201, 0.2);
+            border-bottom-right-radius: 5px;
+            border: 1px solid rgba(0, 206, 201, 0.3);
+            text-align: right;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 0.3rem;
+        }
+        
+        .chat-input-container {
+            padding: 1rem 1.5rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            color: var(--light);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .send-button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .send-button:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .voice-button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .voice-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .voice-button.listening {
+            background-color: #ff3b30;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+        }
+        
+        .voice-feedback {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            display: none;
+            z-index: 100;
+        }
+        
+        .voice-feedback.active {
+            display: block;
+            animation: fadeInUp 0.3s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(30px);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 100px) rotate(90deg); }
+            50% { transform: translate(100px, 50px) rotate(180deg); }
+            75% { transform: translate(50px, 0) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background-color: var(--primary);
+            top: 20%;
+            left: 10%;
+            animation-duration: 20s;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            background-color: var(--accent);
+            top: 60%;
+            left: 70%;
+            animation-duration: 25s;
+            animation-direction: reverse;
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            background-color: var(--primary-light);
+            top: 30%;
+            left: 50%;
+            animation-duration: 30s;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .message {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
+    <div class="voice-feedback" id="voiceFeedback">
+        <i class="fas fa-microphone"></i> Listening... Speak now
+    </div>
+    
+    <div class="container">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <h3 class="sidebar-title">
+                    <i class="fas fa-compass"></i>
+                    Meditation Programs
+                </h3>
+                <div class="meditation-programs">
+                    <div class="program active">
+                        <div class="program-name">Mindful Breathing</div>
+                        <div class="program-duration">10 min • Beginner</div>
+                    </div>
+                    <div class="program">
+                        <div class="program-name">Body Scan</div>
+                        <div class="program-duration">15 min • Intermediate</div>
+                    </div>
+                    <div class="program">
+                        <div class="program-name">Loving Kindness</div>
+                        <div class="program-duration">20 min • Advanced</div>
+                    </div>
+                    <div class="program">
+                        <div class="program-name">Stress Relief</div>
+                        <div class="program-duration">12 min • Beginner</div>
+                    </div>
+                    <div class="program">
+                        <div class="program-name">Sleep Meditation</div>
+                        <div class="program-duration">25 min • All Levels</div>
+                    </div>
+                    <div class="program">
+                        <div class="program-name">Anxiety Relief</div>
+                        <div class="program-duration">18 min • Intermediate</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div>
+                        <div class="chat-title">Meditation Guide</div>
+                        <div class="chat-status">Online</div>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        Welcome to SereneMind. I'm your meditation guide. How can I help you find peace today?
+                        <div class="message-time">10:02 AM</div>
+                    </div>
+                    
+                    <div class="message bot-message">
+                        You can speak to me by clicking the microphone button. Try saying "start meditation" or "help me relax".
+                        <div class="message-time">10:02 AM</div>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+                    <button class="voice-button" id="voiceButton">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="send-button" id="sendButton">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        const voiceButton = document.getElementById('voiceButton');
+        const voiceFeedback = document.getElementById('voiceFeedback');
+        
+        // Speech Recognition and Synthesis Setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
+        const SpeechSynthesisUtterance = window.SpeechSynthesisUtterance || null;
+        const synth = window.speechSynthesis || null;
+        
+        let recognition;
+        let isMeditationActive = false;
+        let currentMeditation = null;
+        
+        // Initialize speech recognition if available
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+            
+            recognition.onstart = function() {
+                voiceButton.classList.add('listening');
+                voiceFeedback.classList.add('active');
+            };
+            
+            recognition.onend = function() {
+                voiceButton.classList.remove('listening');
+                voiceFeedback.classList.remove('active');
+                
+                // If meditation is active, restart listening automatically
+                if (isMeditationActive) {
+                    setTimeout(() => recognition.start(), 1000);
+                }
+            };
+            
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error', event.error);
+                addMessage("Sorry, I didn't catch that. Please try again.", false);
+                voiceButton.classList.remove('listening');
+                voiceFeedback.classList.remove('active');
+                
+                // If meditation is active, restart listening after error
+                if (isMeditationActive) {
+                    setTimeout(() => recognition.start(), 1000);
+                }
+            };
+            
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = transcript;
+                processVoiceCommand(transcript);
+            };
+        } else {
+            voiceButton.style.display = 'none';
+            addMessage("Your browser doesn't support voice commands. Please use Chrome or Edge.", false);
+        }
+        
+        // Speak text using speech synthesis
+        function speak(text) {
+            if (!synth || !SpeechSynthesisUtterance) return;
+            
+            // Cancel any ongoing speech
+            synth.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9;
+            utterance.pitch = 0.9;
+            utterance.volume = 1;
+            
+            synth.speak(utterance);
+        }
+        
+        // Voice command processing
+        function processVoiceCommand(command) {
+            command = command.toLowerCase().trim();
+            addMessage(command, true);
+            
+            // Meditation control commands
+            if (command.includes('start') || command.includes('begin')) {
+                if (command.includes('breathing') || command.includes('mindful')) {
+                    startMeditation('Mindful Breathing');
+                } 
+                else if (command.includes('body scan') || command.includes('body')) {
+                    startMeditation('Body Scan');
+                }
+                else if (command.includes('loving kindness') || command.includes('kindness')) {
+                    startMeditation('Loving Kindness');
+                }
+                else if (command.includes('stress') || command.includes('relief')) {
+                    startMeditation('Stress Relief');
+                }
+                else if (command.includes('sleep') || command.includes('rest')) {
+                    startMeditation('Sleep Meditation');
+                }
+                else if (command.includes('anxiety') || command.includes('calm')) {
+                    startMeditation('Anxiety Relief');
+                }
+                else if (command.includes('meditation') || command.includes('session')) {
+                    startMeditation('Mindful Breathing'); // Default meditation
+                }
+            }
+            // Stop commands
+            else if (command.includes('stop') || command.includes('end') || command.includes('pause')) {
+                stopMeditation();
+            }
+            // Help commands
+            else if (command.includes('help') || command.includes('guide') || command.includes('what can you do'))) {
+                showHelp();
+            }
+            // General responses
+            else if (command.includes('hello') || command.includes('hi'))) {
+                respond("Hello! How can I help you with your meditation practice today?");
+            }
+            else if (command.includes('thank') || command.includes('thanks'))) {
+                respond("You're welcome! I'm happy to help you on your mindfulness journey.");
+            }
+            else {
+                respond("I'm not sure I understood. Try saying 'start meditation', 'help me relax', or 'begin body scan'.");
+            }
+        }
+        
+        // Start a meditation session
+        function startMeditation(type) {
+            isMeditationActive = true;
+            currentMeditation = type;
+            
+            // Update active program in sidebar
+            document.querySelectorAll('.program').forEach(program => {
+                program.classList.remove('active');
+                if (program.querySelector('.program-name').textContent === type) {
+                    program.classList.add('active');
+                }
+            });
+            
+            // Start the meditation guidance
+            let response = "";
+            let speakText = "";
+            
+            switch(type) {
+                case 'Mindful Breathing':
+                    response = "Let's begin a 10-minute mindful breathing exercise. Find a comfortable position...";
+                    speakText = response + " Sit comfortably, close your eyes, and focus on your breath. Breathe in slowly through your nose for 4 seconds... hold for 2 seconds... and exhale slowly through your mouth for 6 seconds. Let's begin...";
+                    break;
+                case 'Body Scan':
+                    response = "Starting a 15-minute body scan meditation. We'll bring awareness to each part of your body...";
+                    speakText = response + " Lie down comfortably and close your eyes. We'll start by bringing awareness to your toes... notice any sensations there...";
+                    break;
+                case 'Loving Kindness':
+                    response = "Beginning a 20-minute loving kindness meditation. This practice cultivates compassion...";
+                    speakText = response + " Sit comfortably and bring to mind someone you care about. Silently repeat: May you be happy, may you be healthy, may you be safe...";
+                    break;
+                case 'Stress Relief':
+                    response = "Starting a 12-minute stress relief meditation. Let's release tension and find calm...";
+                    speakText = response + " Sit upright with your hands on your lap. As you breathe in, imagine calm energy entering your body... as you exhale, imagine stress leaving your body...";
+                    break;
+                case 'Sleep Meditation':
+                    response = "Beginning a 25-minute sleep meditation to help you relax and prepare for rest...";
+                    speakText = response + " Lie down in bed and close your eyes. Imagine yourself in a peaceful place... perhaps a quiet beach at sunset...";
+                    break;
+                case 'Anxiety Relief':
+                    response = "Starting an 18-minute anxiety relief meditation. We'll focus on grounding techniques...";
+                    speakText = response + " Sit comfortably and place your feet flat on the floor. Notice 5 things you can see... 4 things you can touch... 3 things you can hear...";
+                    break;
+                default:
+                    response = "Let's begin a meditation session. Find a comfortable position and close your eyes...";
+                    speakText = response + " Focus on your breath. Inhale deeply... and exhale slowly...";
+            }
+            
+            respond(response, speakText);
+            
+            // Start continuous listening for meditation control
+            if (recognition) {
+                setTimeout(() => recognition.start(), 1000);
+            }
+        }
+        
+        // Stop the current meditation
+        function stopMeditation() {
+            if (!isMeditationActive) {
+                respond("There's no active meditation session to stop.");
+                return;
+            }
+            
+            isMeditationActive = false;
+            currentMeditation = null;
+            respond(`The ${currentMeditation} meditation has ended. How else can I assist you?`, 
+                   `Ending the ${currentMeditation} meditation. Take a moment to notice how you feel.`);
+        }
+        
+        // Show help information
+        function showHelp() {
+            const helpText = "I can guide you through various meditations. Try saying: \n" +
+                            "- 'Start mindful breathing' \n" +
+                            "- 'Begin body scan meditation' \n" +
+                            "- 'Help me sleep' \n" +
+                            "- 'I need stress relief' \n" +
+                            "- 'Stop meditation' to end a session";
+            
+            const speakText = "I can guide you through different meditations. " +
+                              "You can say: Start mindful breathing, Begin body scan, " +
+                              "Help me sleep, I need stress relief, or Stop meditation.";
+            
+            respond(helpText, speakText);
+        }
+        
+        // Add a response to the chat and optionally speak it
+        function respond(text, speakText = null) {
+            addMessage(text, false);
+            if (speakText !== null && synth) {
+                speak(speakText || text);
+            }
+        }
+        
+        // Add message to chat
+        function addMessage(content, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+            
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            messageDiv.innerHTML = `
+                ${content}
+                <div class="message-time">${timeString}</div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Event listeners
+        voiceButton.addEventListener('click', function() {
+            if (recognition) {
+                try {
+                    recognition.start();
+                } catch (e) {
+                    console.error('Speech recognition error:', e);
+                    addMessage("Voice recognition failed. Please try again.", false);
+                }
+            }
+        });
+        
+        sendButton.addEventListener('click', function() {
+            const message = chatInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatInput.value = '';
+                processVoiceCommand(message);
+            }
+        });
+        
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+        
+        // Program selection
+        document.querySelectorAll('.program').forEach(program => {
+            program.addEventListener('click', function() {
+                document.querySelectorAll('.program').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                
+                const programName = this.querySelector('.program-name').textContent;
+                respond(`I'd love to guide you through "${programName}". Say "start meditation" or click the microphone to begin.`);
+            });
+        });
+        
+        // Initial help message
+        setTimeout(() => {
+            respond("You can control everything with your voice. Try saying 'What can you do?' to learn more.", 
+                   "You can control everything with your voice. Try saying: What can you do?");
+        }, 3000);
+    </script>
+</body>
+</html>
